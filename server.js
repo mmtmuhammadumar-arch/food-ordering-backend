@@ -42,6 +42,13 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 
-connectDB().then(() => {
+connectDB();
+
+// When running locally with "node server.js" or "npm run dev", start a
+// normal server. On Vercel, this file is imported as a serverless function
+// instead, so app.listen() never runs there — Vercel handles that itself.
+if (require.main === module) {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-});
+}
+
+module.exports = app;
